@@ -32,12 +32,12 @@ class LuckDrawConfig:
     """抽签配置类"""
 
     LUCK_IMAGES = {
-        "大吉": "https://neuro.nya.pub/game/luck/luck%20(1).png",
-        "吉": "https://neuro.nya.pub/game/luck/luck%20(2).png",
-        "中吉": "https://neuro.nya.pub/game/luck/luck%20(3).png",
-        "小吉": "https://neuro.nya.pub/game/luck/luck%20(4).png",
-        "末吉": "https://neuro.nya.pub/game/luck/luck%20(5).png",
-        "凶": "https://neuro.nya.pub/game/luck/luck%20(6).png",
+        "大吉": "https://r2.yuhiri.top/neuro-lucky/luck-1.png",
+        "吉": "https://r2.yuhiri.top/neuro-lucky/luck-2.png",
+        "中吉": "https://r2.yuhiri.top/neuro-lucky/luck-3.png",
+        "小吉": "https://r2.yuhiri.top/neuro-lucky/luck-4.png",
+        "末吉": "https://r2.yuhiri.top/neuro-lucky/luck-5.png",
+        "凶": "https://r2.yuhiri.top/neuro-lucky/luck-6.png",
     }
 
 
