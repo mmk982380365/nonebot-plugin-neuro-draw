@@ -153,12 +153,8 @@ async def handle_draw_luck(bot: Bot, event: Event):
     """处理抽签命令"""
     try:
         message, image_path = await draw_handler.handle_luck_draw(event.get_user_id())
-        message_result = Message([
-            message,
-            MessageSegment.image(loadImageBytes(image_path))
-        ])
         await draw_luck.send(
-            message_result
+            await UniMessage([message, Image(raw=loadImageBytes(image_path))]).export(bot)
         )
     except Exception as e:
         await draw_luck.send(f"抽签失败：{str(e)}")
