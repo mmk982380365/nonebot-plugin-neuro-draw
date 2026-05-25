@@ -9,6 +9,7 @@ from nonebot import on_command, require
 from typing import Dict, Optional, Tuple
 from nonebot.plugin import PluginMetadata
 from nonebot.plugin import inherit_supported_adapters
+from nonebot.adapters.onebot.v11.message import Message, MessageSegment
 import os
 
 require("nonebot_plugin_alconna")
@@ -152,8 +153,12 @@ async def handle_draw_luck(bot: Bot, event: Event):
     """处理抽签命令"""
     try:
         message, image_path = await draw_handler.handle_luck_draw(event.get_user_id())
+        message_result = Message([
+            message,
+            MessageSegment.image(loadImageBytes(image_path))
+        ])
         await draw_luck.send(
-            await UniMessage([message, Image(loadImageBytes(image_path))]).export(bot)
+            message_result
         )
     except Exception as e:
         await draw_luck.send(f"抽签失败：{str(e)}")
