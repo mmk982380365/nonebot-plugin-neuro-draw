@@ -9,6 +9,7 @@ from nonebot import on_command, require
 from typing import Dict, Optional, Tuple
 from nonebot.plugin import PluginMetadata
 from nonebot.plugin import inherit_supported_adapters
+import os
 
 require("nonebot_plugin_alconna")
 require("nonebot_plugin_localstore")
@@ -22,7 +23,7 @@ __plugin_meta__ = PluginMetadata(
     description="Neuro-sama 的每日一签",
     usage="/neuro_draw 或 /牛签 或 /抽签",
     type="application",
-    homepage="https://github.com/zhaomaoniu/nonebot-plugin-neuro-draw",
+    homepage="https://github.com/mmk982380365/nonebot-plugin-neuro-draw",
     config=None,
     supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
 )
@@ -140,13 +141,19 @@ draw_handler = LuckDrawHandler()
 draw_luck = on_command("neuro_draw", aliases={"牛签", "抽签"}, priority=10)
 
 
+def loadImageBytes(image_path: str):
+    if os.path.exists(image_path):
+        with open(image_path, 'rb') as file:
+            return file.read()
+    pass
+
 @draw_luck.handle()
 async def handle_draw_luck(bot: Bot, event: Event):
     """处理抽签命令"""
     try:
         message, image_path = await draw_handler.handle_luck_draw(event.get_user_id())
         await draw_luck.send(
-            await UniMessage([message, Image(path=image_path)]).export(bot)
+            await UniMessage([message, Image(loadImageBytes(image_path))]).export(bot)
         )
     except Exception as e:
         await draw_luck.send(f"抽签失败：{str(e)}")
